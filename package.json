@@ -11,5 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattDague/FriendFinder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MattDague/FriendFinder/issues"
+  },
+  "homepage": "https://github.com/MattDague/FriendFinder#readme"
 }
