@@ -229,14 +229,12 @@
                 photo: $("#photo").val().trim(),
                 scores: scorearray
             }
-            match(newFriend);
             $.post("/api/friends", newFriend)
                 .then(function (data) {
                     console.log("add.html", data);
-                });
+                })
 
-
-
+            match(newFriend)
 
         });
 
@@ -247,35 +245,29 @@
                 var friendMatch
                 var friendPic
                 
-
-                for (j = 0; j < data.length; j++) {
+                for (j = 0; j < data.length - 1; j++) {
 
                     var newTotal = 0
                     
-
                     for (i = 0; i < newFriend.scores.length; i++) {
                         var diff = Math.abs(parseInt(data[j].scores[i]) - parseInt(newFriend.scores[i]));
                         newTotal = newTotal + diff;
-
                     }
-
                     if(newTotal < diffTotal){
                         diffTotal = newTotal
                         friendMatch = data[j].name;
                         friendPic = data[j].photo
-
-
                     }
-                    
-                    
                 }
                 $("#nameHolder").text("Your new best friend: " + friendMatch);
                 $("#imageHolder").html("<img id='matchImage' src='" + friendPic + "' alt='picture of your match'>")
 
             });
+           
 
         }
 
+      
 
 
     </script>
