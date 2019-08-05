@@ -50,7 +50,7 @@ var Friends = [
     },
     {
         "name": "George",
-        "photo": "https://pbs.twimg.com/profile_images/691785039043022849/oWsy8LNR.jpg",
+        "photo": "https://si.wsj.net/public/resources/images/ED-AX322_Kessle_JV_20180309114331.jpg",
         "scores": [
             "2",
             "2",
