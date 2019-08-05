@@ -4,7 +4,7 @@ app.post("/api/friends", function(req, res) {
     var newFriend = req.body;
     console.log(newFriend);
     
-    friends.push(newFriend);S
+    friends.push(newFriend);
     res.json(newFriend);
     console.log("New Friend Added")
     
