@@ -14,16 +14,13 @@
 
 <body>
 
-
     <div class="container mt-5">
         <div class="jumbotron text-center">
-            <h1>Find your platonic soulmate</h1>
+            <h1>find your platonic soulmate</h1>
             <br>
-            <a href="api/friends" class="stretched-link">API Friends List</a>
+
         </div>
     </div>
-
-
 
     <div class="container my-5">
 
@@ -31,7 +28,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3><strong>Tell us about yourself</strong></h3>
+                    <h3><strong>Tell us about yourself!</strong></h3>
                 </div>
                 <div class="card-body">
                     <form method="POST" role="form">
@@ -181,98 +178,98 @@
 
                     </form>
                     <br>
+                    <div class="text-left"><a href="api/friends" class="stretched-link">API Friends List</a></div>
                     <div class="text-right">
-                        <!-- <a href="/api/friends"> -->
-                        <button type="submit" class="btn btn-primary btn-md" id="add-btn" data-toggle="modal" data-target="#modal">Submit</button>
-                        <!-- </a> -->
+                        <a href="/home"><button class="btn btn-primary btn-md">Home</button></a>
+                        <button type="submit" class="btn btn-primary btn-md" id="add-btn" data-toggle="modal"
+                            data-target="#modal">Submit</button>
+
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </div>
-
     <!-- Modal -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="friendModal" id="nameHolder"></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="friendModal" id="nameHolder"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="imageHolder">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OKAY!</button>
+                </div>
             </div>
-            <div class="modal-body" id="imageHolder">
-              
-            </div>
-            <div class="modal-footer">
-              
-              <button type="button" class="btn btn-primary" data-dismiss="modal">OKAY!</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
     <script type="text/javascript">
 
+        // button functionality
         $("#add-btn").on("click", function (event) {
             event.preventDefault();
+            //array to hold score data
             var scorearray = [];
+            //function takes score data for each answer and pushes to array
             for (var i = 1; i < 11; i++) {
                 var score = $("#question" + i).val()
                 scorearray.push(score)
             }
+            //object to contain all input data
             var newFriend = {
                 name: $("#name").val().trim(),
                 photo: $("#photo").val().trim(),
                 scores: scorearray
             }
+            //post to api
             $.post("/api/friends", newFriend)
                 .then(function (data) {
                     console.log("add.html", data);
                 })
-
+            //calls match function with current data
             match(newFriend)
 
         });
-
+        // function to check how user scores against available friend list
         function match(newFriend) {
-            $.get("/api/friends/", function (data) {
+            $.get("/api/friends", function (data) {
 
+                // total set at high value initially to make sure its replaced later
                 var diffTotal = 100
+
+                //variable for friend data to put in modal later
                 var friendMatch
                 var friendPic
-                
+
+                //loops through entire friends array
                 for (j = 0; j < data.length - 1; j++) {
 
+                    // variable for individual score difference
                     var newTotal = 0
-                    
+                    //loop for each friends score, takes the absolute value of the difference
                     for (i = 0; i < newFriend.scores.length; i++) {
                         var diff = Math.abs(parseInt(data[j].scores[i]) - parseInt(newFriend.scores[i]));
                         newTotal = newTotal + diff;
                     }
-                    if(newTotal < diffTotal){
+                    //if the combined new total is less than the current best difference total, the difference total is given the new number and the friend pic/name variables are given values
+                    if (newTotal < diffTotal) {
                         diffTotal = newTotal
                         friendMatch = data[j].name;
                         friendPic = data[j].photo
                     }
                 }
+                //places information in friend display modal for showing your match
                 $("#nameHolder").text("Your new best friend: " + friendMatch);
                 $("#imageHolder").html("<img id='matchImage' src='" + friendPic + "' alt='picture of your match'>")
-
             });
-           
-
         }
 
-      
-
-
     </script>
-
-
 
     <style>
         body {
@@ -284,10 +281,10 @@
         .questions {
             width: 250px
         }
-       #matchImage{
-        max-width: 400px;
-        text-align: center
 
-       }
+        #matchImage {
+            max-width: 400px;
+            text-align: center
+        }
     </style>
 </body>

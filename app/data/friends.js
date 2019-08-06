@@ -1,5 +1,5 @@
 
-var Friends = [
+var friends = [
     {
         "name": "Laura",
         "photo": "https://vignette.wikia.nocookie.net/twinpeaks/images/9/92/Laura_Palmer_%281989%29.jpg/revision/latest?cb=20180219220542",
@@ -114,4 +114,4 @@ var Friends = [
     },
 
 ]
-module.exports = Friends
+module.exports = friends
